@@ -1,4 +1,4 @@
-package com.example.gamevault.ui.theme.navigation
+package com.example.gamevault.ui.navigation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -37,6 +37,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.gamevault.ui.explore.ExploreGamesScreen
+import com.example.gamevault.ui.explore.ExploreViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun GameVaultNavGraph(
@@ -102,9 +105,14 @@ fun GameVaultNavGraph(
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Explore.route) {
-                ModulePlaceholderScreen(
-                    title = "Explore Games",
-                    subtitle = "RAWG Public API catalog is being connected in Week 10."
+                val exploreViewModel: ExploreViewModel = viewModel(
+                    factory = ExploreViewModel.factory()
+                )
+                ExploreGamesScreen(
+                    viewModel = exploreViewModel,
+                    onGameClick = { gameId ->
+                        navController.navigate(Screen.GameDetail.createRoute(gameId))
+                    }
                 )
             }
 

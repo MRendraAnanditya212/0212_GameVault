@@ -1,4 +1,4 @@
-package com.example.gamevault.ui.theme.navigation
+package com.example.gamevault.ui.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark

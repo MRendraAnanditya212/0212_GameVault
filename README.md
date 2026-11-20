@@ -58,7 +58,7 @@
 
 ## Tabel Progres Mingguan (Week 10 – Week 14)
 
-**Total Commit Tercapai:** `13 / 30` *(Target minimal 30 commit bertahap)*
+**Total Commit Tercapai:** `20 / 30` *(Target minimal 30 commit bertahap)*
 
 | Minggu | Periode | Fokus Modul & Deliverable | Target Commit | Progres | Status |
 | :--- | :--- | :--- | :---: | :---: | :---: |

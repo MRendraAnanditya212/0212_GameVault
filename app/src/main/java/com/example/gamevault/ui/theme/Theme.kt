@@ -11,48 +11,69 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+private val GameVaultDarkColorScheme = darkColorScheme(
+    primary = NeonCyan,
+    onPrimary = OnNeonCyan,
+    primaryContainer = NeonCyanContainer,
+    onPrimaryContainer = OnNeonCyanContainer,
+    secondary = CyberViolet,
+    onSecondary = OnCyberViolet,
+    secondaryContainer = CyberVioletContainer,
+    onSecondaryContainer = OnCyberVioletContainer,
+    tertiary = RatingGold,
+    onTertiary = OnRatingGold,
+    tertiaryContainer = RatingGoldContainer,
+    onTertiaryContainer = TextPrimary,
+    background = VaultObsidian,
+    onBackground = TextPrimary,
+    surface = VaultSurface,
+    onSurface = TextPrimary,
+    surfaceVariant = VaultSurfaceElevated,
+    onSurfaceVariant = TextSecondary,
+    surfaceContainerLowest = VaultObsidian,
+    surfaceContainerLow = VaultSurface,
+    surfaceContainer = VaultSurfaceElevated,
+    surfaceContainerHigh = VaultSurfaceHigh,
+    surfaceContainerHighest = VaultSurfaceHigh,
+    outline = VaultOutline,
+    outlineVariant = VaultOutlineVariant,
+    error = CrimsonError,
+    onError = OnCrimsonError,
+    errorContainer = CrimsonErrorContainer,
+    onErrorContainer = TextPrimary
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+private val GameVaultLightColorScheme = lightColorScheme(
+    primary = NeonCyanDark,
+    onPrimary = LightSurface,
+    primaryContainer = OnNeonCyanContainer,
+    onPrimaryContainer = OnNeonCyan,
+    secondary = CyberViolet,
+    onSecondary = LightSurface,
+    background = LightBackground,
+    onBackground = LightTextPrimary,
+    surface = LightSurface,
+    onSurface = LightTextPrimary,
+    surfaceVariant = LightSurfaceVariant,
+    onSurfaceVariant = LightTextSecondary,
+    error = CrimsonError,
+    onError = LightSurface
 )
 
 @Composable
 fun GameVaultTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    darkTheme: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+    val colorScheme = if (darkTheme) {
+        GameVaultDarkColorScheme
+    } else {
+        GameVaultLightColorScheme
     }
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = GameVaultTypography,
         content = content
     )
 }

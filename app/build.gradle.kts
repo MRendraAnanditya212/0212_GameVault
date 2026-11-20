@@ -1,7 +1,18 @@
+import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
 }
+
+// To Do list: Import API KEY RAWG
+val localProperties = Properties().apply {
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.inputStream().use { load(it) }
+    }
+}
+val rawgApiKey = localProperties.getProperty("RAWG_API_KEY", "")
+
 
 android {
     namespace = "com.example.gamevault"

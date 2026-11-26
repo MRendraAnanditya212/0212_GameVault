@@ -44,6 +44,7 @@ import com.example.gamevault.ui.auth.LoginScreen
 import com.example.gamevault.ui.auth.RegisterScreen
 import com.example.gamevault.ui.explore.ExploreGamesScreen
 import com.example.gamevault.ui.explore.ExploreViewModel
+import com.example.gamevault.ui.profile.ProfileScreen
 
 @Composable
 fun GameVaultNavGraph(
@@ -141,9 +142,14 @@ fun GameVaultNavGraph(
             }
 
             composable(Screen.Profile.route) {
-                ModulePlaceholderScreen(
-                    title = "Gamer Profile & Auth",
-                    subtitle = "JWT authentication & role-based session management scheduled for Week 11."
+                ProfileScreen(
+                    session = sessionState,
+                    onLogoutConfirm = {
+                        authViewModel.logout()
+                        navController.navigate(Screen.Login.route) {
+                            popUpTo(0) { inclusive = true }
+                        }
+                    }
                 )
             }
 

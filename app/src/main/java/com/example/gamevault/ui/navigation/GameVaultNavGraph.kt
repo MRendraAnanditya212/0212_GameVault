@@ -23,11 +23,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -37,9 +39,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.gamevault.ui.auth.AuthViewModel
+import com.example.gamevault.ui.auth.LoginScreen
+import com.example.gamevault.ui.auth.RegisterScreen
 import com.example.gamevault.ui.explore.ExploreGamesScreen
 import com.example.gamevault.ui.explore.ExploreViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun GameVaultNavGraph(
@@ -49,6 +53,12 @@ fun GameVaultNavGraph(
     val currentDestination = navBackStackEntry?.destination
     val topLevelRoutes = gameVaultBottomNavItems.map { it.screen.route }.toSet()
     val showBottomBar = currentDestination?.route in topLevelRoutes
+
+    val authViewModel: AuthViewModel = viewModel()
+    val sessionState by authViewModel.sessionState.collectAsState()
+    val authUiState by authViewModel.uiState.collectAsState()
+
+    val startDestination = if (sessionState.isLoggedIn) Screen.Explore.route else Screen.Login.route
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
@@ -101,7 +111,7 @@ fun GameVaultNavGraph(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.Explore.route,
+            startDestination = startDestination,
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Explore.route) {
@@ -147,6 +157,26 @@ fun GameVaultNavGraph(
                 GameDetailPlaceholderScreen(
                     gameId = gameId,
                     onNavigateBack = { navController.popBackStack() }
+                )
+            }
+
+            composable(Screen.Login.route) {
+                LoginScreen(
+                    uiState = authUiState,
+                    onLoginClick = { email, password -> authViewModel.login(email, password) },
+                    onNavigateToRegister = { navController.navigate(Screen.Register.route) },
+                    onClearMessages = { authViewModel.clearMessages() }
+                )
+            }
+
+            composable(Screen.Register.route) {
+                RegisterScreen(
+                    uiState = authUiState,
+                    onRegisterClick = { nama, email, gamerTag, pass ->
+                        authViewModel.register(nama, email, gamerTag, pass)
+                    },
+                    onNavigateBackToLogin = { navController.popBackStack() },
+                    onClearMessages = { authViewModel.clearMessages() }
                 )
             }
         }

@@ -20,7 +20,11 @@ data class ExploreUiState(
     val errorMessage: String? = null,
     val currentPage: Int = 1,
     val hasNextPage: Boolean = false,
-    val totalCount: Int = 0
+    val totalCount: Int = 0,
+
+    val selectedGenre: String? = null,
+    val selectedPlatform: String? = null,
+    val selectedOrdering: String = "-added"
 ) {
     val isEmpty: Boolean
         get() = !isLoading && errorMessage == null && games.isEmpty()

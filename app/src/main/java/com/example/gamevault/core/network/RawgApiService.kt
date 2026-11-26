@@ -16,7 +16,8 @@ interface RawgApiService {
         @Query("search") search: String? = null,
         @Query("genres") genres: String? = null,
         @Query("parent_platforms") parentPlatforms: String? = null,
-        @Query("ordering") ordering: String? = "-added"
+        @Query("ordering") ordering: String? = "-added",
+        @Query("dates") dates: String? = null
     ): RawgGamesResponse
 
     @GET("games/{id}")

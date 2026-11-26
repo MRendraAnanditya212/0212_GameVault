@@ -42,6 +42,7 @@ class RawgGameRepository(
         dates: String?
     ): Result<GamePageResult> = safeApiCall {
         val response = apiService.getGames(
+            apiKey = apiKeyProvider(),
             page = page,
             pageSize = pageSize,
             search = search?.trim()?.takeIf { it.isNotEmpty() },
@@ -58,11 +59,11 @@ class RawgGameRepository(
     }
 
     override suspend fun getGameDetail(gameId: Int): Result<GameDetail> = safeApiCall {
-        apiService.getGameDetail(gameId).toDomain()
+        apiService.getGameDetail(gameId, apiKeyProvider()).toDomain()
     }
 
     override suspend fun getGameScreenshots(gameId: Int): Result<List<GameScreenshot>> = safeApiCall {
-        apiService.getGameScreenshots(gameId).results.map { it.toDomain() }
+        apiService.getGameScreenshots(gameId, apiKeyProvider()).results.map { it.toDomain() }
     }
 
     private suspend fun <T> safeApiCall(block: suspend () -> T): Result<T> {

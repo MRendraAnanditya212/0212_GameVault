@@ -2,8 +2,9 @@ package com.example.gamevault.ui.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.gamevault.data.model.GameDetailDto
+import com.example.gamevault.data.model.GameDetail
 import com.example.gamevault.data.repository.GameRepository
+import com.example.gamevault.data.repository.RawgGameRepository
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,13 +14,13 @@ import kotlinx.coroutines.launch
 
 data class GameDetailUiState(
     val isLoading: Boolean = true,
-    val detail: GameDetailDto? = null,
+    val detail: GameDetail? = null,
     val screenshots: List<String> = emptyList(),
     val errorMessage: String? = null
 )
 
 class GameDetailViewModel(
-    private val repository: GameRepository = GameRepository()
+    private val repository: GameRepository = RawgGameRepository()
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(GameDetailUiState())
@@ -37,8 +38,11 @@ class GameDetailViewModel(
 
                 detailResult.onSuccess { gameDetail ->
                     val galleryUrls = buildList {
-                        gameDetail.backgroundImage?.let { add(it) }
-                        addAll(screenshotsResult.getOrDefault(emptyList()))
+                        gameDetail.coverImageUrl?.let { add(it) }
+                        gameDetail.additionalImageUrl?.let { add(it) }
+                        screenshotsResult.getOrNull()?.let { list ->
+                            addAll(list.map { it.imageUrl })
+                        }
                     }.distinct()
 
                     _uiState.update {

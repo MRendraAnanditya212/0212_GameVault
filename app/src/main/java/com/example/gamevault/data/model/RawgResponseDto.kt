@@ -82,3 +82,31 @@ data class EsrbRatingDto(
     @SerializedName("id") val id: Int,
     @SerializedName("name") val name: String = ""
 )
+
+data class GameDetailDto(
+    val id: Int,
+    val name: String,
+    @SerializedName("description_raw") val descriptionRaw: String?,
+    val released: String?,
+    @SerializedName("background_image") val backgroundImage: String?,
+    val rating: Double,
+    val metacritic: Int?,
+    val genres: List<GenreDto> = emptyList(),
+    @SerializedName("parent_platforms") val parentPlatforms: List<ParentPlatformWrapper> = emptyList(),
+    val developers: List<DeveloperDto> = emptyList()
+)
+
+data class GenreDto(val id: Int, val name: String, val slug: String)
+data class ParentPlatformWrapper(val platform: PlatformDto)
+data class PlatformDto(val id: Int, val name: String, val slug: String)
+data class DeveloperDto(val id: Int, val name: String)
+
+data class ScreenshotResponse(
+    val count: Int,
+    val results: List<ScreenshotItemDto>
+)
+
+data class ScreenshotItemDto(
+    val id: Int,
+    val image: String
+)

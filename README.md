@@ -53,22 +53,24 @@
    ```bash
    ./gradlew testDebugUnitTest assembleDebug
    ```
+## 4. Progress Mingguan (Weekly Progress)
+Berikut adalah linimasa pengembangan proyek GameVault yang direkonstruksi secara riil berdasarkan riwayat git commit:
 
----
+### 🗓️ Minggu 10 (20 November 2026)
+* **Inisialisasi Lingkungan & Tema UI GameVault** ( `1a752ef` , `1cd9d9b` , `06feb7e` , `b82e6ea` ): Inisialisasi proyek, penyesuaian skema warna Dark Gaming Material 3, tipografi, tema UI GameVault, dan dokumentasi `README.md`.
+* **Sistem Navigasi Compose** ( `9bdaea6` , `2843ba3` ): Pembuatan `GameVaultNavGraph`, sealed class `Screen`, dan `BottomNavItem` untuk navigasi terpusat.
+* **Integrasi RAWG Public API & Model Data** ( `aaa6d08` , `64b19db` , `32de961` ): Pembuatan DTO RAWG API, model domain `Game`, `UiState`, `RawgApiService`, `RetrofitClient`, serta repositori `RawgGameRepository`.
+* **Katalog Game Explore & Komponen UI** ( `0a13c8b` , `e8fc8ca` , `22a3df7` ): Pembuatan `ExploreUiState`, `ExploreViewModel`, komponen UI reusable ( `GameCard` , `CommonComponents` ), dan antarmuka `ExploreGamesScreen`.
+* **Pengujian Unit (Unit Testing)** ( `58d56f8` , `2cab75b` ): Pembuatan unit test `ExploreViewModelTest` untuk memverifikasi logika ViewModel dan mapper DTO.
 
-## Tabel Progres Mingguan (Week 10 – Week 14)
 
-**Total Commit Tercapai:** `20 / 30` *(Target minimal 30 commit bertahap)*
 
-| Minggu | Periode | Fokus Modul & Deliverable | Target Commit | Progres | Status |
-| :--- | :--- | :--- | :---: | :---: | :---: |
-| **Week 10** | 16–22 Nov 2026 | Setup proyek, Tema Dark Gaming Material 3, Navigation Compose, Retrofit RAWG Public API, `ExploreGamesScreen`, & Unit Test | 10 | 12 (+1 init) | Selesai |
-| **Week 11** | 23–29 Nov 2026 | Backend PostgreSQL (5 tabel), JWT Auth (`Access` + `Refresh Token`), Login/Register RBAC, Multi-Filter RAWG, & `GameDetailScreen` Galeri Screenshot Responsif | 14 | 0 | Belum Mulai |
-| **Week 12** | 30 Nov–6 Des 2026 | Modul CRUDS **Curated Collections** (RBAC Admin CRUDS & User Read/Search) | 10 | 0 | Belum Mulai |
-| **Week 13** | 7–13 Des 2026 | Modul CRUDS **Game Reviews & Rating Komunitas** (validasi kepemilikan & play status) | 10 | 0 | Belum Mulai |
-| **Week 14** | 14–20 Des 2026 | Modul CRUDS **Wishlist / Backlog**, Local File Storage (`.txt`/`.pdf` export & reader), QA & finalisasi SRS | 15 | 0 | Belum Mulai |
+### 🗓️ Minggu 11 (26 November 2026)
+* **Manajemen Sesi & Local Storage DataStore** ( `787fc95` , `f02771e` ): Manajemen sesi pengguna dan penyimpanan token lokal menggunakan `TokenManager` dan `UserSession` berbasis DataStore Preferences.
+* **Keamanan Jaringan & Token Interceptor** ( `a1ef8be` , `e887371` , `0ad7dd7` ): Integrasi `AuthInterceptor` untuk menyisipkan JWT Bearer Token, `TokenAuthenticator` untuk penanganan otomatis refresh token (401 Unauthorized), dan konfigurasi backend API pada `RetrofitClient`.
+* **Sistem Autentikasi Backend & Repositori** ( `ee0ed05` , `c9b3976` , `849571f` ): Pembuatan DTO & model `AuthModel`, `AuthRepository`, `AuthViewModel`, serta antarmuka `LoginScreen` dan `RegisterScreen`.
+* **Detail Game Responsif & Multi-Filter Explore** ( `849571f` , `f02771e` , `cfb480f` ): Pembuatan `GameDetailViewModel`, layar `GameDetailScreen` dengan galeri screenshot responsif ( `HorizontalPager` + `AsyncImage` ), serta fitur multi-filter dan pencarian ter-debounce pada katalog game.
 
----
 
 ## Struktur Direktori Utama (`app/`)
 
